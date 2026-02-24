@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function initThemeToggle() {
     const toggle = document.getElementById('themeToggle');
     const saved = localStorage.getItem('theme');
-    
+
     if (saved) {
         document.documentElement.setAttribute('data-theme', saved);
     }
@@ -34,10 +34,10 @@ function initThemeToggle() {
 function initTypingAnimation() {
     const el = document.getElementById('heroBio');
     const phrases = [
-        'Full-Stack Developer 🚀',
-        'Flutter Enthusiast 💙',
-        'Open Source Contributor 🌟',
-        'Building the future, one commit at a time 💻'
+        'Full-Stack & AI Developer 🚀',
+        'React · Java · JavaScript 💙',
+        'Building AI-enabled apps 🤖',
+        'Shipping practical, user-focused software 💻'
     ];
     let phraseIndex = 0;
     let charIndex = 0;
@@ -104,7 +104,7 @@ function initContributionGraph() {
         span.textContent = mp.month;
         const nextWeek = (i + 1 < monthPositions.length) ? monthPositions[i + 1].week : totalWeeks;
         const widthWeeks = nextWeek - mp.week;
-        span.style.minWidth = `${widthWeeks * 16}px`;
+        span.style.minWidth = `${widthWeeks * 12}px`;
         monthsRow.appendChild(span);
     });
 
@@ -119,29 +119,29 @@ function initContributionGraph() {
 
             if (date > now) continue;
 
-            // Generate realistic-ish pattern
+            // Generate pattern calibrated to ~347 contributions/year
             const dayOfWeek = date.getDay();
             const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
-            const baseChance = isWeekday ? 0.65 : 0.35;
+            const baseChance = isWeekday ? 0.35 : 0.15;
 
             // Add some "streak" periods
             const weekOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 1)) / (7 * 24 * 60 * 60 * 1000));
-            const isActiveWeek = (weekOfYear % 4 !== 2); // Less active every 4th-ish week
-            const chance = isActiveWeek ? baseChance : baseChance * 0.3;
+            const isActiveWeek = (weekOfYear % 4 !== 2);
+            const chance = isActiveWeek ? baseChance : baseChance * 0.2;
 
             let level = 0;
             const rand = Math.random();
             if (rand < chance) {
                 const intensity = Math.random();
-                if (intensity < 0.4) level = 1;
-                else if (intensity < 0.7) level = 2;
-                else if (intensity < 0.9) level = 3;
+                if (intensity < 0.5) level = 1;
+                else if (intensity < 0.8) level = 2;
+                else if (intensity < 0.95) level = 3;
                 else level = 4;
 
-                const contributions = level === 1 ? Math.floor(Math.random() * 3) + 1
-                    : level === 2 ? Math.floor(Math.random() * 5) + 3
-                    : level === 3 ? Math.floor(Math.random() * 8) + 6
-                    : Math.floor(Math.random() * 12) + 10;
+                const contributions = level === 1 ? 1
+                    : level === 2 ? Math.floor(Math.random() * 2) + 2
+                        : level === 3 ? Math.floor(Math.random() * 3) + 3
+                            : Math.floor(Math.random() * 4) + 5;
                 totalContributions += contributions;
             }
 
@@ -180,48 +180,48 @@ async function initProjects() {
     // Fallback projects (in case the API fails or user has few repos)
     const fallbackProjects = [
         {
-            name: 'ride-share-app',
-            description: 'A complete ride-sharing application with real-time tracking, built with Flutter and Firebase.',
-            language: 'Dart',
+            name: 'college-bus-tracker',
+            description: 'Real-time GPS tracking system with live bus location, ETA prediction, and stop notifications — used by 50+ students.',
+            language: 'JavaScript',
             stars: 12,
             forks: 3,
             url: 'https://github.com/Niru-26016'
         },
         {
-            name: 'interview-prep-ai',
-            description: 'AI-powered interview preparation app with speech recognition and intelligent feedback.',
+            name: 'ai-whatsapp-chatbot',
+            description: 'Multi-modal WhatsApp chatbot supporting text, voice & image queries with multilingual support and intent detection.',
+            language: 'Python',
+            stars: 15,
+            forks: 5,
+            url: 'https://github.com/Niru-26016'
+        },
+        {
+            name: 'loansense-ai-calling',
+            description: 'Automated outbound calling platform with Text-to-Speech voice messages, reducing manual calling effort by ~35%.',
             language: 'JavaScript',
             stars: 8,
             forks: 2,
             url: 'https://github.com/Niru-26016'
         },
         {
-            name: 'expense-tracker',
-            description: 'Voice-enabled expense tracking app with AI categorization and group splitting.',
-            language: 'Dart',
-            stars: 15,
-            forks: 5,
-            url: 'https://github.com/Niru-26016'
-        },
-        {
-            name: 'crm-dashboard',
-            description: 'Modern CRM dashboard with lead management, call tracking, and analytics built with React.',
+            name: 'vibely-web-app',
+            description: 'React.js + Firebase web app with authentication and real-time database operations. Built during internship at Test Yantra.',
             language: 'JavaScript',
             stars: 6,
             forks: 1,
             url: 'https://github.com/Niru-26016'
         },
         {
-            name: 'bus-tracking-system',
-            description: 'Real-time bus tracking system with GPS speed calculation and ETA prediction.',
-            language: 'Dart',
-            stars: 10,
-            forks: 4,
+            name: 'shopify-storefront',
+            description: 'Mobile-optimized Shopify storefront using Liquid templates with product catalog and inventory management.',
+            language: 'HTML',
+            stars: 4,
+            forks: 1,
             url: 'https://github.com/Niru-26016'
         },
         {
-            name: 'portfolio-website',
-            description: 'My personal portfolio website — a GitHub-themed dark-mode experience. You\'re looking at it right now!',
+            name: 'Niru-26016.github.io',
+            description: 'My personal portfolio — a GitHub-themed dark-mode experience. You\'re looking at it right now!',
             language: 'HTML',
             stars: 3,
             forks: 0,

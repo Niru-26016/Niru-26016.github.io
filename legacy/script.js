@@ -2,6 +2,9 @@
    GITHUB-THEMED PORTFOLIO — SCRIPT.JS
    ============================================================ */
 
+// Backend API base URL (set to your deployed Express server URL)
+const API_BASE = 'http://localhost:3001';
+
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initTypingAnimation();
@@ -73,18 +76,79 @@ function initTypingAnimation() {
 }
 
 /* ============ CONTRIBUTION GRAPH ============ */
-function initContributionGraph() {
+async function initContributionGraph() {
     const grid = document.getElementById('contributionGrid');
     const monthsRow = document.getElementById('contributionMonths');
+
+    // Try fetching real data from backend
+    try {
+        const res = await fetch(`${API_BASE}/api/contributions`);
+        if (!res.ok) throw new Error('Backend unavailable');
+        const data = await res.json();
+        renderRealContributions(grid, monthsRow, data);
+        return;
+    } catch (e) {
+        console.log('Backend unavailable, using simulated contributions');
+    }
+
+    // Fallback: simulated contribution graph
+    renderSimulatedContributions(grid, monthsRow);
+}
+
+function renderRealContributions(grid, monthsRow, data) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const squares = [];
+
+    // Render month labels from real data
+    monthsRow.innerHTML = '';
+    let lastMonth = -1;
+    const monthPositions = [];
+    data.weeks.forEach((week, wi) => {
+        if (week.contributionDays.length > 0) {
+            const m = new Date(week.contributionDays[0].date).getMonth();
+            if (m !== lastMonth) {
+                monthPositions.push({ month: months[m], week: wi });
+                lastMonth = m;
+            }
+        }
+    });
+    monthPositions.forEach((mp, i) => {
+        const span = document.createElement('span');
+        span.textContent = mp.month;
+        const nextWeek = (i + 1 < monthPositions.length) ? monthPositions[i + 1].week : data.weeks.length;
+        span.style.minWidth = `${(nextWeek - mp.week) * 12}px`;
+        monthsRow.appendChild(span);
+    });
+
+    // Render real contribution squares
+    data.weeks.forEach(week => {
+        week.contributionDays.forEach(day => {
+            const square = document.createElement('div');
+            square.className = 'contribution-square';
+            const count = day.contributionCount;
+            const level = count === 0 ? 0 : count <= 2 ? 1 : count <= 5 ? 2 : count <= 9 ? 3 : 4;
+            square.setAttribute('data-level', level);
+
+            const dateStr = new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const contribText = count === 0 ? 'No contributions' : `${count} contribution${count > 1 ? 's' : ''}`;
+            square.setAttribute('data-tooltip', `${contribText} on ${dateStr}`);
+
+            grid.appendChild(square);
+            squares.push(square);
+        });
+    });
+
+    document.getElementById('contributionCount').textContent = `${data.total.toLocaleString()} contributions`;
+    animateSquares(squares);
+}
+
+function renderSimulatedContributions(grid, monthsRow) {
     const totalWeeks = 52;
     const now = new Date();
-
-    // Generate month labels
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const startDate = new Date(now);
     startDate.setDate(startDate.getDate() - (totalWeeks * 7));
 
-    // Track months for labels
     let lastMonth = -1;
     const monthPositions = [];
     for (let w = 0; w < totalWeeks; w++) {
@@ -97,18 +161,15 @@ function initContributionGraph() {
         }
     }
 
-    // Render month labels
     monthsRow.innerHTML = '';
     monthPositions.forEach((mp, i) => {
         const span = document.createElement('span');
         span.textContent = mp.month;
         const nextWeek = (i + 1 < monthPositions.length) ? monthPositions[i + 1].week : totalWeeks;
-        const widthWeeks = nextWeek - mp.week;
-        span.style.minWidth = `${widthWeeks * 12}px`;
+        span.style.minWidth = `${(nextWeek - mp.week) * 12}px`;
         monthsRow.appendChild(span);
     });
 
-    // Generate contribution data with a realistic pattern
     let totalContributions = 0;
     const squares = [];
 
@@ -116,52 +177,41 @@ function initContributionGraph() {
         for (let d = 0; d < 7; d++) {
             const date = new Date(startDate);
             date.setDate(date.getDate() + w * 7 + d);
-
             if (date > now) continue;
 
-            // Generate pattern calibrated to ~347 contributions/year
             const dayOfWeek = date.getDay();
             const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
             const baseChance = isWeekday ? 0.35 : 0.15;
-
-            // Add some "streak" periods
             const weekOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 1)) / (7 * 24 * 60 * 60 * 1000));
             const isActiveWeek = (weekOfYear % 4 !== 2);
             const chance = isActiveWeek ? baseChance : baseChance * 0.2;
 
             let level = 0;
-            const rand = Math.random();
-            if (rand < chance) {
+            if (Math.random() < chance) {
                 const intensity = Math.random();
                 if (intensity < 0.5) level = 1;
                 else if (intensity < 0.8) level = 2;
                 else if (intensity < 0.95) level = 3;
                 else level = 4;
-
-                const contributions = level === 1 ? 1
-                    : level === 2 ? Math.floor(Math.random() * 2) + 2
-                        : level === 3 ? Math.floor(Math.random() * 3) + 3
-                            : Math.floor(Math.random() * 4) + 5;
-                totalContributions += contributions;
+                totalContributions += level === 1 ? 1 : level === 2 ? Math.floor(Math.random() * 2) + 2 : level === 3 ? Math.floor(Math.random() * 3) + 3 : Math.floor(Math.random() * 4) + 5;
             }
 
             const square = document.createElement('div');
             square.className = 'contribution-square';
             square.setAttribute('data-level', level);
-
             const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
             const contribText = level === 0 ? 'No contributions' : `${level === 1 ? '1-2' : level === 2 ? '3-7' : level === 3 ? '6-13' : '10+'} contributions`;
             square.setAttribute('data-tooltip', `${contribText} on ${dateStr}`);
-
             grid.appendChild(square);
             squares.push(square);
         }
     }
 
-    // Update total
     document.getElementById('contributionCount').textContent = `${totalContributions.toLocaleString()} contributions`;
+    animateSquares(squares);
+}
 
-    // Animate squares popping in
+function animateSquares(squares) {
     squares.forEach((sq, i) => {
         sq.style.opacity = '0';
         sq.style.transform = 'scale(0)';
@@ -185,7 +235,8 @@ async function initProjects() {
             language: 'JavaScript',
             stars: 12,
             forks: 3,
-            url: 'https://github.com/Niru-26016'
+            url: 'https://github.com/Niru-26016',
+            topics: ['Flutter', 'Firebase', 'Google Maps', 'Dart']
         },
         {
             name: 'ai-whatsapp-chatbot',
@@ -193,7 +244,8 @@ async function initProjects() {
             language: 'Python',
             stars: 15,
             forks: 5,
-            url: 'https://github.com/Niru-26016'
+            url: 'https://github.com/Niru-26016',
+            topics: ['Python', 'OpenAI', 'Twilio', 'n8n']
         },
         {
             name: 'loansense-ai-calling',
@@ -201,7 +253,8 @@ async function initProjects() {
             language: 'JavaScript',
             stars: 8,
             forks: 2,
-            url: 'https://github.com/Niru-26016'
+            url: 'https://github.com/Niru-26016',
+            topics: ['Node.js', 'Retell AI', 'Twilio', 'React']
         },
         {
             name: 'vibely-web-app',
@@ -209,7 +262,8 @@ async function initProjects() {
             language: 'JavaScript',
             stars: 6,
             forks: 1,
-            url: 'https://github.com/Niru-26016'
+            url: 'https://github.com/Niru-26016',
+            topics: ['React', 'Firebase', 'Node.js', 'CSS']
         },
         {
             name: 'shopify-storefront',
@@ -217,7 +271,8 @@ async function initProjects() {
             language: 'HTML',
             stars: 4,
             forks: 1,
-            url: 'https://github.com/Niru-26016'
+            url: 'https://github.com/Niru-26016',
+            topics: ['Shopify', 'Liquid', 'HTML', 'CSS']
         },
         {
             name: 'Niru-26016.github.io',
@@ -225,15 +280,29 @@ async function initProjects() {
             language: 'HTML',
             stars: 3,
             forks: 0,
-            url: 'https://github.com/Niru-26016/Niru-26016.github.io'
+            url: 'https://github.com/Niru-26016/Niru-26016.github.io',
+            topics: ['HTML', 'CSS', 'JavaScript', 'Express']
         }
     ];
 
+    // Try backend first (real pinned repos)
+    try {
+        const res = await fetch(`${API_BASE}/api/repos`);
+        if (!res.ok) throw new Error('Backend unavailable');
+        const repos = await res.json();
+        if (repos.length >= 1) {
+            renderProjects(grid, repos);
+            return;
+        }
+    } catch (e) {
+        console.log('Backend unavailable, trying public API');
+    }
+
+    // Fallback: public GitHub REST API (most recently updated repos)
     try {
         const response = await fetch('https://api.github.com/users/Niru-26016/repos?sort=updated&per_page=6');
         if (!response.ok) throw new Error('API failed');
         const repos = await response.json();
-
         if (repos.length >= 4) {
             renderProjects(grid, repos.map(repo => ({
                 name: repo.name,
@@ -243,12 +312,14 @@ async function initProjects() {
                 forks: repo.forks_count,
                 url: repo.html_url
             })));
-        } else {
-            renderProjects(grid, fallbackProjects);
+            return;
         }
     } catch (e) {
-        renderProjects(grid, fallbackProjects);
+        console.log('Public API unavailable, using fallback projects');
     }
+
+    // Final fallback: hardcoded projects
+    renderProjects(grid, fallbackProjects);
 }
 
 function renderProjects(container, projects) {
@@ -263,6 +334,10 @@ function renderProjects(container, projects) {
         card.className = 'repo-card animate-on-scroll';
         card.style.animationDelay = `${index * 0.1}s`;
 
+        const topicsHtml = (project.topics && project.topics.length > 0)
+            ? `<div class="repo-card__topics">${project.topics.map(t => `<span class="repo-card__topic">${t}</span>`).join('')}</div>`
+            : '';
+
         card.innerHTML = `
             <div class="repo-card__header">
                 <svg class="repo-card__icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
@@ -272,6 +347,7 @@ function renderProjects(container, projects) {
                 <span class="repo-card__visibility">Public</span>
             </div>
             <p class="repo-card__description">${project.description}</p>
+            ${topicsHtml}
             <div class="repo-card__footer">
                 <span class="repo-card__lang">
                     <span class="repo-card__lang-dot ${langClass}"></span>

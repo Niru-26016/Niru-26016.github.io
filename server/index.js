@@ -13,7 +13,8 @@ app.use(cors({
         'http://localhost:5500',
         'http://127.0.0.1:5500',
         'https://niranjanreddy.me',
-        'https://niru-26016.github.io'
+        'https://niru-26016.github.io',
+        /\.vercel\.app$/
     ]
 }));
 
@@ -131,6 +132,11 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', hasToken: !!GITHUB_TOKEN });
 });
 
-app.listen(PORT, () => {
-    console.log(`🚀 Portfolio API running on http://localhost:${PORT}`);
-});
+// Local dev only — Vercel uses the exported app as a serverless function
+if (process.env.NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
+        console.log(`🚀 Portfolio API running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;

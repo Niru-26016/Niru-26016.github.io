@@ -3,7 +3,7 @@ import { Book, Star, GitFork } from 'lucide-react';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
 
 const fallbackProjects = [
   {

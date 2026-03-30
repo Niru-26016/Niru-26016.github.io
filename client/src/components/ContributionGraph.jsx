@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Activity } from 'lucide-react';
 
-const API_BASE = 'http://localhost:3001';
+const API_BASE = import.meta.env.DEV ? 'http://localhost:3001' : '';
 
 const getLevelClass = (count) => {
   if (count === 0) return 'bg-github-square-0';

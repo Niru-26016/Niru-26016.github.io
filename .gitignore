@@ -1,10 +1,34 @@
 # Dependencies
 node_modules/
 
-# Environment files
+# Environment variables (SECRETS)
 .env
-server/.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # OS files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vercel
+.vercel/

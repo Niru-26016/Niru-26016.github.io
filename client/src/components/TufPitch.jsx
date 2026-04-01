@@ -66,7 +66,7 @@ const TufPitch = () => {
               <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React" className="w-8 h-8" />
             </motion.div>
             <motion.div whileHover={{ scale: 1.1, rotate: -10 }} className="p-4 bg-gray-100/50 dark:bg-black/40 rounded-xl border border-github-border backdrop-blur-md">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" alt="TypeScript" className="w-8 h-8 rounded-sm" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" alt="JavaScript" className="w-8 h-8 rounded-sm" />
             </motion.div>
           </div>
         </div>

@@ -27,7 +27,7 @@ export const Layout = ({ children }) => {
   return (
     <>
       <InteractiveBackground />
-      <div className="min-h-screen flex flex-col pt-16 selection:bg-github-link/30 overflow-x-hidden">
+      <div className="min-h-screen flex flex-col pt-16 pb-24 md:pb-0 selection:bg-github-link/30 overflow-x-hidden">
         <Navbar />
       <main className="flex-grow flex flex-col gap-12 sm:gap-16">
         {children}

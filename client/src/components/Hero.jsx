@@ -50,7 +50,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="about" className="pt-32 pb-16 px-6 max-w-[1200px] w-full mx-auto">
+    <section id="about" className="pt-16 pb-16 px-6 max-w-[1200px] w-full mx-auto scroll-mt-24">
       <div className="flex flex-col md:flex-row gap-12 items-start justify-between">
         <motion.div 
           className="w-full md:w-[300px] shrink-0 flex flex-col gap-6"
@@ -70,6 +70,16 @@ const Hero = () => {
           </div>
 
           <div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 10, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-500/10 to-blue-500/10 dark:from-green-500/20 dark:to-blue-500/20 border border-green-500/30 text-green-700 dark:text-green-400 text-sm font-semibold mb-6 shadow-[0_0_20px_rgba(46,160,67,0.1)] dark:shadow-[0_0_20px_rgba(46,160,67,0.2)]"
+            >
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              Applying for SWE Intern (Frontend) @ takeUforward
+            </motion.div>
+
             <h1 className="text-[1.6rem] leading-tight font-bold text-github-text">Niranjan Reddy P R</h1>
             <p className="text-[1.15rem] leading-tight text-github-secondary mb-4">Niru-26016</p>
             <div className="h-6 mb-6 font-mono text-sm text-github-text">
@@ -90,18 +100,43 @@ const Hero = () => {
               </span>
             </div>
 
-            <div className="flex items-center gap-3 mb-6">
-              <motion.a whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.9 }} href="https://github.com/Niru-26016" target="_blank" rel="noreferrer" className="p-2 border border-github-border rounded-md bg-github-dark hover:bg-github-header hover:border-white transition-all text-github-text hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.15)]">
-                <FaGithub className="w-5 h-5" />
-              </motion.a>
-              <motion.a whileHover={{ scale: 1.1, rotate: -5 }} whileTap={{ scale: 0.9 }} href="https://www.linkedin.com/in/niranjanpolaka" target="_blank" rel="noreferrer" className="p-2 border border-github-border rounded-md bg-github-dark hover:bg-github-header hover:border-blue-400 transition-all text-github-text hover:text-blue-400 hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                <FaLinkedin className="w-5 h-5" />
+            <div className="flex flex-col gap-4 mt-8">
+              <div className="flex items-center gap-3">
+                <motion.a 
+                  whileHover={{ scale: 1.1, rotate: 5, y: -5 }} 
+                  whileTap={{ scale: 0.9 }} 
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  href="https://github.com/Niru-26016" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="p-3 border border-github-border rounded-xl bg-white/50 dark:bg-[#0d1117]/80 backdrop-blur-md hover:bg-gray-100 dark:hover:bg-[#161b22] hover:border-black dark:hover:border-white transition-all text-github-text hover:text-black dark:hover:text-white hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                >
+                  <FaGithub className="w-6 h-6" />
+                </motion.a>
+                <motion.a 
+                  whileHover={{ scale: 1.1, rotate: -5, y: -5 }} 
+                  whileTap={{ scale: 0.9 }} 
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  href="https://www.linkedin.com/in/niranjanpolaka" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="p-3 border border-github-border rounded-xl bg-white/50 dark:bg-[#0d1117]/80 backdrop-blur-md hover:bg-blue-50 dark:hover:bg-[#161b22] hover:border-blue-500 dark:hover:border-blue-400 transition-all text-github-text hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_20px_rgba(59,130,246,0.4)]"
+                >
+                  <FaLinkedin className="w-6 h-6" />
+                </motion.a>
+              </div>
+
+              <motion.a 
+                whileHover={{ scale: 1.02, y: -4, boxShadow: "0 10px 30px -10px rgba(35,134,54,0.6)" }} 
+                whileTap={{ scale: 0.98 }} 
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                href="./resume.pdf" 
+                download 
+                className="github-btn inline-flex items-center gap-2 w-full justify-center text-md py-3 rounded-xl bg-[#238636] hover:bg-[#2ea043] transition-colors"
+              >
+                <Download className="w-5 h-5" /> Download Resume
               </motion.a>
             </div>
-
-            <motion.a whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }} href="./resume.pdf" download className="github-btn inline-flex items-center gap-2 w-full justify-center transition-all duration-300 hover:shadow-[0_4px_20px_rgba(35,134,54,0.4)] hover:-translate-y-1">
-              <Download className="w-4 h-4" /> Download Resume
-            </motion.a>
           </div>
         </motion.div>
 
@@ -117,30 +152,31 @@ const Hero = () => {
             <span className="text-sm font-medium text-github-text">README.md</span>
           </div>
           <div className="p-6 md:p-8 pb-12 text-github-text text-[1rem] leading-relaxed">
-            <h2 className="text-2xl font-bold mb-4 pb-2 border-b border-github-border flex items-center gap-2 text-white">
+            <h2 className="text-2xl font-bold mb-4 pb-2 border-b border-github-border flex items-center gap-2 text-black dark:text-white">
               <span role="img" aria-label="wave">👋</span> Hi, I'm Niranjan Reddy P R
             </h2>
             <p className="mb-6">
-              A Computer Science (CSBS) student at <strong className="font-semibold text-white">Panimalar Engineering College, Chennai</strong> experienced in building <strong className="font-semibold text-white">full-stack and AI-enabled applications</strong> using Java, JavaScript, and REST APIs.
+              A frontend-focused Computer Science student at <strong className="font-semibold text-black dark:text-white">Panimalar Engineering College, Chennai</strong> who is passionate about building <strong className="font-semibold text-black dark:text-white">high-quality, responsive, and performant user interfaces</strong> with React.js, JavaScript, and modern CSS.
             </p>
 
-            <h3 className="text-xl font-bold mt-8 mb-4 flex items-center gap-2 text-white">
-              <span role="img" aria-label="telescope">🔭</span> What I've built
+            <h3 className="text-xl font-bold mt-8 mb-4 flex items-center gap-2 text-black dark:text-white">
+              <span role="img" aria-label="rocket">🚀</span> What I bring to takeUforward
             </h3>
             <ul className="list-disc list-inside space-y-2 mb-6 md:ml-2">
-              <li>AI chatbots, voice-based systems & real-time web apps</li>
-              <li>Web apps with <strong className="font-semibold text-white">React.js</strong> + Firebase & <strong className="font-semibold text-white">Shopify</strong> storefronts</li>
-              <li>Automated calling systems with <strong className="font-semibold text-white">AI & Text-to-Speech</strong></li>
+              <li><strong className="font-semibold text-black dark:text-white">Mobile-first UI engineering</strong> — I obsess over making the mobile browser feel as smooth and polished as a native app</li>
+              <li><strong className="font-semibold text-black dark:text-white">React.js & component architecture</strong> — Built production apps with reusable, performant component systems</li>
+              <li><strong className="font-semibold text-black dark:text-white">Responsive & pixel-perfect layouts</strong> — Tailwind CSS, Framer Motion, and modern CSS for seamless cross-device experiences</li>
+              <li><strong className="font-semibold text-black dark:text-white">Performance-driven mindset</strong> — Focused on fast load times, smooth animations, and optimized rendering</li>
             </ul>
             
-            <h3 className="text-lg font-semibold mt-6 mb-3">💼 Experience</h3>
+            <h3 className="text-lg font-semibold mt-6 mb-3 text-black dark:text-white">💼 Frontend Experience</h3>
             <ul className="list-disc pl-5 mb-4 space-y-1">
-              <li><strong className="font-semibold text-white">Test Yantra</strong> — Web Application Intern (React.js, Firebase)</li>
-              <li><strong className="font-semibold text-white">Zapyo Fashions</strong> — Full Stack Developer Intern (Shopify, Logic ERP)</li>
+              <li><strong className="font-semibold text-black dark:text-white">Test Yantra</strong> — Built responsive web apps with React.js, handled state management & Firebase integration</li>
+              <li><strong className="font-semibold text-black dark:text-white">Zapyo Fashions</strong> — Developed customer-facing Shopify storefronts optimized for mobile commerce</li>
             </ul>
 
-            <h3 className="text-lg font-semibold mt-6 mb-3">⚡ Fun fact</h3>
-            <p>I believe the best code is the one that solves real problems for real people.</p>
+            <h3 className="text-lg font-semibold mt-6 mb-3 text-black dark:text-white">📱 Why this internship</h3>
+            <p>I want to work on real frontend challenges at scale — improving mobile browser UX for <strong className="font-semibold text-black dark:text-white">1.5M+ users</strong> is exactly the kind of high-impact work I'm looking for. No backend distractions. Just pure frontend craft.</p>
           </div>
         </motion.div>
       </div>

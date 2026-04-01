@@ -21,6 +21,10 @@
     --link: #58a6ff;
   }
 
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply bg-github-dark text-github-text font-sans antialiased transition-colors duration-300 overflow-x-hidden;
   }
@@ -28,7 +32,7 @@
 
 @layer components {
   .section-container {
-    @apply max-w-[1200px] w-full mx-auto px-6 py-12;
+    @apply max-w-[1200px] w-full mx-auto px-6 py-12 scroll-mt-24;
   }
   
   .github-btn {

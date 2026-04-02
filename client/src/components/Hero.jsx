@@ -77,7 +77,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-green-500/10 to-blue-500/10 dark:from-green-500/20 dark:to-blue-500/20 border border-green-500/30 text-green-700 dark:text-green-400 text-sm font-semibold mb-6 shadow-[0_0_20px_rgba(46,160,67,0.1)] dark:shadow-[0_0_20px_rgba(46,160,67,0.2)]"
             >
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Applying for SWE Intern (Frontend) @ takeUforward
+              Open to opportunities
             </motion.div>
 
             <h1 className="text-[1.6rem] leading-tight font-bold text-github-text">Niranjan Reddy P R</h1>
@@ -156,27 +156,27 @@ const Hero = () => {
               <span role="img" aria-label="wave">👋</span> Hi, I'm Niranjan Reddy P R
             </h2>
             <p className="mb-6">
-              A frontend-focused Computer Science student at <strong className="font-semibold text-black dark:text-white">Panimalar Engineering College, Chennai</strong> who is passionate about building <strong className="font-semibold text-black dark:text-white">high-quality, responsive, and performant user interfaces</strong> with React.js, JavaScript, and modern CSS.
+              A Full-Stack Developer and Computer Science student at <strong className="font-semibold text-black dark:text-white">Panimalar Engineering College, Chennai</strong> who is passionate about building <strong className="font-semibold text-black dark:text-white">end-to-end web applications</strong> with React.js, Node.js, Java, and modern cloud technologies.
             </p>
 
             <h3 className="text-xl font-bold mt-8 mb-4 flex items-center gap-2 text-black dark:text-white">
-              <span role="img" aria-label="rocket">🚀</span> What I bring to takeUforward
+              <span role="img" aria-label="rocket">🚀</span> What I Do
             </h3>
             <ul className="list-disc list-inside space-y-2 mb-6 md:ml-2">
-              <li><strong className="font-semibold text-black dark:text-white">Mobile-first UI engineering</strong> — I obsess over making the mobile browser feel as smooth and polished as a native app</li>
-              <li><strong className="font-semibold text-black dark:text-white">React.js & component architecture</strong> — Built production apps with reusable, performant component systems</li>
-              <li><strong className="font-semibold text-black dark:text-white">Responsive & pixel-perfect layouts</strong> — Tailwind CSS, Framer Motion, and modern CSS for seamless cross-device experiences</li>
-              <li><strong className="font-semibold text-black dark:text-white">Performance-driven mindset</strong> — Focused on fast load times, smooth animations, and optimized rendering</li>
+              <li><strong className="font-semibold text-black dark:text-white">Full-Stack Development</strong> — Building complete web applications from interactive React frontends to scalable Node.js backends</li>
+              <li><strong className="font-semibold text-black dark:text-white">AI-Powered Applications</strong> — Integrating AI/ML APIs and building intelligent features into real-world products</li>
+              <li><strong className="font-semibold text-black dark:text-white">Cloud & DevOps</strong> — Deploying and managing apps with Firebase, Vercel, and Oracle Cloud Infrastructure</li>
+              <li><strong className="font-semibold text-black dark:text-white">Performance & UX</strong> — Crafting responsive, pixel-perfect interfaces with smooth animations and optimized rendering</li>
             </ul>
             
-            <h3 className="text-lg font-semibold mt-6 mb-3 text-black dark:text-white">💼 Frontend Experience</h3>
+            <h3 className="text-lg font-semibold mt-6 mb-3 text-black dark:text-white">💼 Experience</h3>
             <ul className="list-disc pl-5 mb-4 space-y-1">
               <li><strong className="font-semibold text-black dark:text-white">Test Yantra</strong> — Built responsive web apps with React.js, handled state management & Firebase integration</li>
               <li><strong className="font-semibold text-black dark:text-white">Zapyo Fashions</strong> — Developed customer-facing Shopify storefronts optimized for mobile commerce</li>
             </ul>
 
-            <h3 className="text-lg font-semibold mt-6 mb-3 text-black dark:text-white">📱 Why this internship</h3>
-            <p>I want to work on real frontend challenges at scale — improving mobile browser UX for <strong className="font-semibold text-black dark:text-white">1.5M+ users</strong> is exactly the kind of high-impact work I'm looking for. No backend distractions. Just pure frontend craft.</p>
+            <h3 className="text-lg font-semibold mt-6 mb-3 text-black dark:text-white">🎯 What I'm Looking For</h3>
+            <p>I'm seeking opportunities to work on <strong className="font-semibold text-black dark:text-white">impactful, production-grade applications</strong> where I can contribute across the full stack — from building polished user interfaces to architecting robust backend services.</p>
           </div>
         </motion.div>
       </div>

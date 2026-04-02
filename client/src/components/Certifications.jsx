@@ -20,6 +20,15 @@ const certs = [
     icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg',
     border: 'border-[#4285F4]/30 hover:border-[#4285F4]',
     shadow: 'hover:shadow-[0_10px_30px_rgba(66,133,244,0.15)]'
+  },
+  {
+    title: 'Claude Code in Action',
+    issuer: 'Anthropic',
+    date: 'Apr 2026',
+    link: 'https://verify.skilljar.com/c/tpd6ihhgj26x',
+    icon: 'https://cdn.simpleicons.org/anthropic/181818/e8e8e8',
+    border: 'border-[#d4a574]/30 hover:border-[#d4a574]',
+    shadow: 'hover:shadow-[0_10px_30px_rgba(212,165,116,0.15)]'
   }
 ];
 

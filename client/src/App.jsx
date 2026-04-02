@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout } from './components/Layout';
 import Hero from './components/Hero';
-import TufPitch from './components/TufPitch';
 import ContributionGraph from './components/ContributionGraph';
 import ProjectGrid from './components/ProjectGrid';
 import SkillsGrid from './components/SkillsGrid';
@@ -12,7 +11,6 @@ function App() {
   return (
     <Layout>
       <Hero />
-      <TufPitch />
       <ContributionGraph />
       <SkillsGrid />
       <ProjectGrid />
